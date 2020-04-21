@@ -8,6 +8,7 @@ Estoy con dudas de como seguir, ya que no se si esta bien hecho el codigo de man
 Disculpe las molestias, es una forma nueva de trabajar y estoy medio perdido. Saludos.
 
 --21/4 Modificacion de codigo--
+
 Buenas profe ahi como te mencione en la clase te envio el codigo avanzado, creo que avance bastante en comparacion con el ultimo codigo subido, lo que hice fue:
 
 Declare las funciones para que no haya ningun tipo de advertencia
