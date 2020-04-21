@@ -18,7 +18,9 @@ Realice mas rutinas en el codigo
 Se que me falta sacar esas variables globales, pude pasar la de contador y tablero, las otras me dan una especie de error que lo voy a ir viendo como sulucionar, lo que si se que hay un error en algunos casos por ejemplo, cuando posiciono 
 
 X|O|
+
 X| |
+
  | |     
  
  La maquina coloca 2 O, una aleatoria y otra bloqueando. Eso lo voy a solucionar para el proximo avance. Saludos
