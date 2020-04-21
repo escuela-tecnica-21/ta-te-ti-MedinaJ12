@@ -9,9 +9,15 @@ Disculpe las molestias, es una forma nueva de trabajar y estoy medio perdido. Sa
 
 --21/4 Modificacion de codigo--
 Buenas profe ahi como te mencione en la clase te envio el codigo avanzado, creo que avance bastante en comparacion con el ultimo codigo subido, lo que hice fue:
+
 Declare las funciones para que no haya ningun tipo de advertencia
+
 Realice mas rutinas en el codigo
+
 Se que me falta sacar esas variables globales, pude pasar la de contador y tablero, las otras me dan una especie de error que lo voy a ir viendo como sulucionar, lo que si se que hay un error en algunos casos por ejemplo, cuando posiciono 
+
 X|O|
 X| |
- | |     La maquina coloca 2 O, una aleatoria y otra bloqueando. Eso lo voy a solucionar para el proximo avance. Saludos
+ | |     
+ 
+ La maquina coloca 2 O, una aleatoria y otra bloqueando. Eso lo voy a solucionar para el proximo avance. Saludos
