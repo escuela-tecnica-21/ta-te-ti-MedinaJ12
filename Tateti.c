@@ -3,53 +3,55 @@
 #include <stdlib.h>
 #include <conio.h>
 
-int ganador_O(char tablero[9]);
-int ganador_X(char tablero[9]);
-int igualar_cero_variables();
-int Analizar_respuesta_usuario_o(char tablero[9]);
-int Analizar_respuesta_usuario_x(char tablero[9]);
-int juego_x(int contador, char tablero[9]);
-int juego_o(int contador, char tablero[9]);
-void empate_X(char tablero[9], int contador);
-void empate_O(char tablero[9], int contador);
+int ganador_O(char tablero[9], int o[9], int lugar_ocupado[9]);
+int ganador_X(char tablero[9], int x[9], int lugar_ocupado[9]);
+int Pregunta_y_respuesta_usuario();
+int igualar_cero_variables(int x[9], int o[9], int lugar_ocupado[9]);
+int Analizar_respuesta_usuario_o(char tablero[9], int o[9], int lugar_ocupado[9], int respuesta);
+int Analizar_respuesta_usuario_x(char tablero[9], int x[9], int lugar_ocupado[9], int respuesta);
+int juego_x(int contador, char tablero[9], int x[9], int lugar_ocupado[9], int respuesta);
+int juego_o(int contador, char tablero[9], int o[9], int lugar_ocupado[9], int respuesta);
+void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int numero_aleatorio);
+void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int numero_aleatorio);
 void dibujo_tablero(char tablero[9]);
-void verificacion_juego_x(char tablero[9], int contador);
-void verificacion_juego_y(char tablero[9], int contador);
+void verificacion_juego_x(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio);
+void verificacion_juego_y(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio);
 
-int x[9],o[9],lugar_ocupado[9], numero_aleatorio;
-int respuesta;
 
 int main()
 {
-    int contador = 0;
+    int contador = 0, x[9], o[9], lugar_ocupado[9], numero_aleatorio, respuesta;
     char tablero[9]= "";
     srand(time(NULL)); // funcion para numeros aleatorios segun el caso.
-    igualar_cero_variables(); // Funcion que iguala a cero las variables.
+    igualar_cero_variables(x, o, lugar_ocupado); // Funcion que iguala a cero las variables.
     while (contador<9) // While que cumple la funcion de ciclo para el ingreso de dato del usuario.
     {
+        dibujo_tablero(tablero);
+        respuesta = Pregunta_y_respuesta_usuario();
         if (contador%2==0)
         {
-            contador = juego_x(contador, tablero); // juego_x es una funcion que se encarga todo sobre el juego en el turno de X, dode posicionar la x, la opcion del usuario, preguntas, etc.
+            contador = juego_x(contador, tablero, x, lugar_ocupado, respuesta); // juego_x es una funcion que se encarga todo sobre el juego en el turno de X, dode posicionar la x, la opcion del usuario, preguntas, etc.
         }
         else
         {
-            contador = juego_o(contador, tablero);
+            contador = juego_o(contador, tablero,o, lugar_ocupado, respuesta);
         }
+        system("cls");
     }
     // ------------------------
     if (contador%2==0) // Si es turno de la X
     {
-        verificacion_juego_x(tablero, contador);
+        verificacion_juego_x(tablero, contador, x, o, lugar_ocupado, numero_aleatorio);
     }
     else // Si es turno de la O.
     {
-        verificacion_juego_y(tablero, contador);
+        verificacion_juego_y(tablero, contador, x, o, lugar_ocupado, numero_aleatorio);
     }
     system("cls");
     dibujo_tablero(tablero);
 }
 
-int ganador_O(char tablero[9]) //
+int ganador_O(char tablero[9], int o[9], int lugar_ocupado[9]) //
 {
     if (o[1]==o[0] || o[1]==o[2] || o[0]==o[2])
     {
@@ -157,7 +159,7 @@ int ganador_O(char tablero[9]) //
         }
     }
 }
-int ganador_X(char tablero[9])
+int ganador_X(char tablero[9], int x[9], int lugar_ocupado[9])
 {
     if (x[1]==x[0] || x[1]==x[2] || x[0]==x[2])
     {
@@ -265,7 +267,7 @@ int ganador_X(char tablero[9])
         }
     }
 }
-void empate_X(char tablero[9], int contador) //
+void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int numero_aleatorio) //
 {
     int repetir = 0;
     if (o[1]==o[0] || o[1]==o[2] || o[0]==o[2])
@@ -378,7 +380,7 @@ void empate_X(char tablero[9], int contador) //
         }
     }
 }
-void empate_O(char tablero[9], int contador)
+void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int numero_aleatorio)
 {
     int repetir = 0;
     if (x[1]==x[0] || x[1]==x[2] || x[0]==x[2])
@@ -495,7 +497,7 @@ void dibujo_tablero(char tablero[9])
 {
     printf(" %c | %c | %c \n---+---+---\n %c | %c | %c\n---+---+---\n %c | %c | %c\n",tablero[0],tablero[1],tablero[2],tablero[3],tablero[4],tablero[5],tablero[6],tablero[7],tablero[8]);
 }
-int igualar_cero_variables()
+int igualar_cero_variables(int x[9], int o[9], int lugar_ocupado[9])
 {
     for (int y=0;y<9;y++)
     {
@@ -504,7 +506,13 @@ int igualar_cero_variables()
         lugar_ocupado[y]=0;
     }
 }
-int Analizar_respuesta_usuario_o(char tablero[9])
+int Pregunta_y_respuesta_usuario ()
+{
+    int respuesta;
+    gotoxy(1,7); printf("INGRESE UN ENTERO DEL 1 AL 9 PARA MARCAR CASILLERO.  SI DESEA TERMINAR DE PLANTEAR LA JUGADA, PRESIONE '0'.\n¿ DONDE DESEA COLOCAR LA O ? = "); scanf("%d",&respuesta);
+    return respuesta;
+}
+int Analizar_respuesta_usuario_o(char tablero[9], int o[9], int lugar_ocupado[9], int respuesta)
 {
     if (respuesta == 0)
     {
@@ -522,7 +530,7 @@ int Analizar_respuesta_usuario_o(char tablero[9])
         return 0;
     }
 }
-int Analizar_respuesta_usuario_x(char tablero[9])
+int Analizar_respuesta_usuario_x(char tablero[9], int x[9], int lugar_ocupado[9], int respuesta)
 {
     if (respuesta== 0)
     {
@@ -540,22 +548,15 @@ int Analizar_respuesta_usuario_x(char tablero[9])
         return 0;
     }
 }
-int Pregunta_y_respuesta_usuario ()
-{
-    gotoxy(1,7); printf("INGRESE UN ENTERO DEL 1 AL 9 PARA MARCAR CASILLERO.  SI DESEA TERMINAR DE PLANTEAR LA JUGADA, PRESIONE '0'.\n¿ DONDE DESEA COLOCAR LA O ? = "); scanf("%d",&respuesta);
-    return respuesta;
-}
 
-int juego_x(int contador, char tablero[9])
+int juego_x(int contador, char tablero[9], int x[9], int lugar_ocupado[9], int respuesta)
 {
     system("cls");
-    dibujo_tablero(tablero); // Funcion que dibuja el tablero.
-    Pregunta_y_respuesta_usuario(); // Variable la cual le pregunta al usuario donde ubicar la ficha, terminar de armar el tablero, y recibe la respuesta del usuario.
-    if (Analizar_respuesta_usuario_x(tablero)==1) // Si la respuesta esta dentro de los terminos del 1 al 9
+    if (Analizar_respuesta_usuario_x(tablero,x,lugar_ocupado, respuesta)==1) // Si la respuesta esta dentro de los terminos del 1 al 9
     {
         contador++;
     }
-    else if (Analizar_respuesta_usuario_x(tablero)==2) // Si el usuario ingreso 0.
+    else if (Analizar_respuesta_usuario_x(tablero,x,lugar_ocupado, respuesta)==2) // Si el usuario ingreso 0.
     {
         contador=contador+10;
     }
@@ -566,16 +567,14 @@ int juego_x(int contador, char tablero[9])
     return contador;
 }
 
-int juego_o(int contador, char tablero[9])
+int juego_o(int contador, char tablero[9], int o[9], int lugar_ocupado[9], int respuesta)
 {
     system("cls");
-    dibujo_tablero(tablero);
-    Pregunta_y_respuesta_usuario();
-    if (Analizar_respuesta_usuario_o(tablero)==1)
+    if (Analizar_respuesta_usuario_o(tablero, o, lugar_ocupado, respuesta)==1)
     {
         contador++;
     }
-    else if (Analizar_respuesta_usuario_o(tablero)==2)
+    else if (Analizar_respuesta_usuario_o(tablero, o, lugar_ocupado, respuesta)==2)
     {
         contador=contador+10;
     }
@@ -586,26 +585,26 @@ int juego_o(int contador, char tablero[9])
     return contador;
 }
 
-void verificacion_juego_x(char tablero[9], int contador)
+void verificacion_juego_x(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio)
 {
-    if (ganador_X(tablero)==1)
+    if (ganador_X(tablero, x, lugar_ocupado)==1)
     {
-        ganador_X(tablero);
+        ganador_X(tablero, x, lugar_ocupado);
     }
     else
     {
-        empate_X(tablero, contador);
+        empate_X(tablero, contador, o, lugar_ocupado, numero_aleatorio);
     }
 }
 
-void verificacion_juego_y(char tablero[9], int contador)
+void verificacion_juego_y(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio)
 {
-    if (ganador_O(tablero)==1)
+    if (ganador_O(tablero, o, lugar_ocupado)==1)
     {
-        ganador_O(tablero);
+        ganador_O(tablero, o, lugar_ocupado);
     }
     else
     {
-        empate_O(tablero, contador);
+        empate_O(tablero, contador, x, lugar_ocupado, numero_aleatorio);
     }
 }
