@@ -24,3 +24,8 @@ X| |
  | |     
  
  La maquina coloca 2 O, una aleatoria y otra bloqueando. Eso lo voy a solucionar para el proximo avance. Saludos
+ 
+ ------ 30/4 CAMBIOS----
+ 
+ Buenas profe, en este avance ya termine de pasar todas las variables globales a el int main. Mi intencion era mandarlo antes de la clase virtual pero tuve unos problemas al pasar una variable que con la clase se me ocurrio como solucionar ese problema.
+ Para el proximo avance mi idea es ya solucionar el error de algunos casos que la maquina actua 2 veces en vez de una.
