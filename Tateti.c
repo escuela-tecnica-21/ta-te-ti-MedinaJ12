@@ -23,7 +23,7 @@ int main()
     int contador = 0, x[9], o[9], lugar_ocupado[9], numero_aleatorio, respuesta;
     char tablero[9]= "";
     srand(time(NULL)); // funcion para numeros aleatorios segun el caso.
-    igualar_cero_variables(x, o, lugar_ocupado); // Funcion que iguala a cero las variables.
+    igualar_cero_variables(x, o, lugar_ocupado);
     while (contador<9) // While que cumple la funcion de ciclo para el ingreso de dato del usuario.
     {
         dibujo_tablero(tablero);
@@ -282,7 +282,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[3]==o[4] || o[4]==o[5] || o[5]==o[3])
+    else if (o[3]==o[4] || o[4]==o[5] || o[5]==o[3])
     {
 
        for (int a=0;a<3;a++)
@@ -295,7 +295,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[6]==o[7] || o[8]==o[7] || o[6]==o[8])
+    else if (o[6]==o[7] || o[8]==o[7] || o[6]==o[8])
     {
        for (int a=0;a<3;a++)
         {
@@ -307,7 +307,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[0]==o[3] || o[6]==o[3] || o[0]==o[6])
+    else if (o[0]==o[3] || o[6]==o[3] || o[0]==o[6])
     {
        for (int a=0;a<9;a=a+3)
         {
@@ -319,7 +319,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[1]==o[4] || o[4]==o[7] || o[1]==o[7])
+    else if (o[1]==o[4] || o[4]==o[7] || o[1]==o[7])
     {
        for (int a=1;a<9;a=a+3)
         {
@@ -331,7 +331,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[2]==o[5] || o[5]==o[8] || o[2]==o[8])
+    else if (o[2]==o[5] || o[5]==o[8] || o[2]==o[8])
     {
        for (int a=2;a<9;a=a+3)
         {
@@ -343,7 +343,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[0]==o[4] || o[4]==o[8] || o[0]==o[8])
+    else if (o[0]==o[4] || o[4]==o[8] || o[0]==o[8])
     {
        for (int a=0;a<9;a=a+4)
         {
@@ -355,7 +355,7 @@ void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int
             }
         }
     }
-    if (o[2]==o[4] || o[4]==o[6] || o[2]==o[6])
+    else if (o[2]==o[4] || o[4]==o[6] || o[2]==o[6])
     {
        for (int a=2;a<9;a=a+2)
         {
@@ -395,7 +395,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[3]==x[4] || x[4]==x[5] || x[5]==x[3])
+     else if (x[3]==x[4] || x[4]==x[5] || x[5]==x[3])
     {
 
        for (int a=0;a<3;a++)
@@ -408,7 +408,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[6]==x[7] || x[8]==x[7] || x[6]==x[8])
+     else if (x[6]==x[7] || x[8]==x[7] || x[6]==x[8])
     {
        for (int a=0;a<3;a++)
         {
@@ -420,7 +420,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[0]==x[3] || x[6]==x[3] || x[0]==x[6])
+     else if (x[0]==x[3] || x[6]==x[3] || x[0]==x[6])
     {
        for (int a=0;a<9;a=a+3)
         {
@@ -432,7 +432,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[1]==x[4] || x[4]==x[7] || x[1]==x[7])
+     else if (x[1]==x[4] || x[4]==x[7] || x[1]==x[7])
     {
        for (int a=1;a<9;a=a+3)
         {
@@ -444,7 +444,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[2]==x[5] || x[5]==x[8] || x[2]==x[8])
+     else if (x[2]==x[5] || x[5]==x[8] || x[2]==x[8])
     {
        for (int a=2;a<9;a=a+3)
         {
@@ -456,7 +456,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[0]==x[4] || x[4]==x[8] || x[0]==x[8])
+     else if (x[0]==x[4] || x[4]==x[8] || x[0]==x[8])
     {
        for (int a=0;a<9;a=a+4)
         {
@@ -468,7 +468,7 @@ void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int
             }
         }
     }
-     if (x[2]==x[4] || x[4]==x[6] || x[2]==x[6])
+     else if (x[2]==x[4] || x[4]==x[6] || x[2]==x[6])
     {
        for (int a=2;a<9;a=a+2)
         {
