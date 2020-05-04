@@ -32,3 +32,8 @@ X| |
  Mi intencion era mandarlo antes de la clase virtual pero tuve unos problemas al pasar una variable que con la clase se me ocurrio como solucionar ese problema.
  
  Para el proximo avance mi idea es ya solucionar el error de algunos casos que la maquina actua 2 veces en vez de una.
+ 
+ -------- 4/5 CAMBIOS -------
+ 
+ En este avance solucione el problema de que en algunos casos la maquina acutaba 2 veces. El problema estaba en la falta de 'else' en los If de las funciones de empate tanto de la X y de la O.
+ 
