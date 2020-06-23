@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-
+// Declaracion de variables
 int ganador_O(char tablero[9]);
 int ganador_X(char tablero[9]);
 int igualar_cero_variables();
@@ -13,8 +13,8 @@ int juego_o(int contador, char tablero[9]);
 void empate_X(char tablero[9], int contador);
 void empate_O(char tablero[9], int contador);
 void dibujo_tablero(char tablero[9]);
-void verificacion_juego_x(char tablero[9], int contador);
-void verificacion_juego_y(char tablero[9], int contador);
+void empataroganar_x(char tablero[9], int contador);
+void empataroganar_o(char tablero[9], int contador);
 
 int x[9],o[9],lugar_ocupado[9], numero_aleatorio;
 int respuesta;
@@ -24,7 +24,7 @@ int main()
     int contador = 0;
     char tablero[9]= "";
     srand(time(NULL)); // funcion para numeros aleatorios segun el caso.
-    igualar_cero_variables(); // Funcion que iguala a cero las variables.
+    igualar_cero_variables();
     while (contador<9) // While que cumple la funcion de ciclo para el ingreso de dato del usuario.
     {
         if (contador%2==0)
@@ -33,23 +33,23 @@ int main()
         }
         else
         {
-            contador = juego_o(contador, tablero);
+            contador = juego_o(contador, tablero); // Mismas funciones, pero para el caso de la O
         }
     }
     // ------------------------
     if (contador%2==0) // Si es turno de la X
     {
-        verificacion_juego_x(tablero, contador);
+        empataroganar_x(tablero, contador); // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de X
     }
     else // Si es turno de la O.
     {
-        verificacion_juego_y(tablero, contador);
+        empataroganar_o(tablero, contador); // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de O
     }
     system("cls");
     dibujo_tablero(tablero);
 }
 
-int ganador_O(char tablero[9]) //
+int ganador_O(char tablero[9]) // Analiza el caso y devuelve 1 si es posible ganar en el turno de la X
 {
     if (o[1]==o[0] || o[1]==o[2] || o[0]==o[2])
     {
@@ -157,7 +157,7 @@ int ganador_O(char tablero[9]) //
         }
     }
 }
-int ganador_X(char tablero[9])
+int ganador_X(char tablero[9]) // Analiza el caso y devuelve 1 si es posible ganar en el turno de la O
 {
     if (x[1]==x[0] || x[1]==x[2] || x[0]==x[2])
     {
@@ -265,7 +265,7 @@ int ganador_X(char tablero[9])
         }
     }
 }
-void empate_X(char tablero[9], int contador) //
+void empate_X(char tablero[9], int contador) // Analiza el caso y devuelve 1 si es posible empatar en el turno de la X
 {
     int repetir = 0;
     if (o[1]==o[0] || o[1]==o[2] || o[0]==o[2])
@@ -378,7 +378,7 @@ void empate_X(char tablero[9], int contador) //
         }
     }
 }
-void empate_O(char tablero[9], int contador)
+void empate_O(char tablero[9], int contador) // Analiza el caso y devuelve 1 si es posible empatar en el turno de la O
 {
     int repetir = 0;
     if (x[1]==x[0] || x[1]==x[2] || x[0]==x[2])
@@ -393,7 +393,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[3]==x[4] || x[4]==x[5] || x[5]==x[3])
+     else if (x[3]==x[4] || x[4]==x[5] || x[5]==x[3])
     {
 
        for (int a=0;a<3;a++)
@@ -406,7 +406,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[6]==x[7] || x[8]==x[7] || x[6]==x[8])
+     else if (x[6]==x[7] || x[8]==x[7] || x[6]==x[8])
     {
        for (int a=0;a<3;a++)
         {
@@ -430,7 +430,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[1]==x[4] || x[4]==x[7] || x[1]==x[7])
+     else if (x[1]==x[4] || x[4]==x[7] || x[1]==x[7])
     {
        for (int a=1;a<9;a=a+3)
         {
@@ -442,7 +442,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[2]==x[5] || x[5]==x[8] || x[2]==x[8])
+     else if (x[2]==x[5] || x[5]==x[8] || x[2]==x[8])
     {
        for (int a=2;a<9;a=a+3)
         {
@@ -454,7 +454,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[0]==x[4] || x[4]==x[8] || x[0]==x[8])
+     else if (x[0]==x[4] || x[4]==x[8] || x[0]==x[8])
     {
        for (int a=0;a<9;a=a+4)
         {
@@ -466,7 +466,7 @@ void empate_O(char tablero[9], int contador)
             }
         }
     }
-     if (x[2]==x[4] || x[4]==x[6] || x[2]==x[6])
+     else if (x[2]==x[4] || x[4]==x[6] || x[2]==x[6])
     {
        for (int a=2;a<9;a=a+2)
         {
@@ -491,11 +491,11 @@ void empate_O(char tablero[9], int contador)
         }
     }
 }
-void dibujo_tablero(char tablero[9])
+void dibujo_tablero(char tablero[9]) // Funcion la cual dibuja el tablero
 {
     printf(" %c | %c | %c \n---+---+---\n %c | %c | %c\n---+---+---\n %c | %c | %c\n",tablero[0],tablero[1],tablero[2],tablero[3],tablero[4],tablero[5],tablero[6],tablero[7],tablero[8]);
 }
-int igualar_cero_variables()
+int igualar_cero_variables() // Iguala a cero las variables
 {
     for (int y=0;y<9;y++)
     {
@@ -504,7 +504,7 @@ int igualar_cero_variables()
         lugar_ocupado[y]=0;
     }
 }
-int Analizar_respuesta_usuario_o(char tablero[9])
+int Analizar_respuesta_usuario_o(char tablero[9]) // Se fija si el numero ingresado es correcto, si es posible jugar ahi o si el usuario decidio que la maquina actue en el turno de la O
 {
     if (respuesta == 0)
     {
@@ -522,7 +522,7 @@ int Analizar_respuesta_usuario_o(char tablero[9])
         return 0;
     }
 }
-int Analizar_respuesta_usuario_x(char tablero[9])
+int Analizar_respuesta_usuario_x(char tablero[9]) // Se fija si el numero ingresado es correcto, si es posible jugar ahi o si el usuario decidio que la maquina actue en el turno de la X
 {
     if (respuesta== 0)
     {
@@ -540,13 +540,13 @@ int Analizar_respuesta_usuario_x(char tablero[9])
         return 0;
     }
 }
-int Pregunta_y_respuesta_usuario ()
+int Pregunta_y_respuesta_usuario () // Realiza la pregunta de a donde quiere posicionar al usuario
 {
     gotoxy(1,7); printf("INGRESE UN ENTERO DEL 1 AL 9 PARA MARCAR CASILLERO.  SI DESEA TERMINAR DE PLANTEAR LA JUGADA, PRESIONE '0'.\n¿ DONDE DESEA COLOCAR LA O ? = "); scanf("%d",&respuesta);
     return respuesta;
 }
 
-int juego_x(int contador, char tablero[9])
+int juego_x(int contador, char tablero[9]) // Todo lo relacionado al turno de la X
 {
     system("cls");
     dibujo_tablero(tablero); // Funcion que dibuja el tablero.
@@ -566,7 +566,7 @@ int juego_x(int contador, char tablero[9])
     return contador;
 }
 
-int juego_o(int contador, char tablero[9])
+int juego_o(int contador, char tablero[9]) // Todo lo relacionado al turno de la O
 {
     system("cls");
     dibujo_tablero(tablero);
@@ -586,7 +586,7 @@ int juego_o(int contador, char tablero[9])
     return contador;
 }
 
-void verificacion_juego_x(char tablero[9], int contador)
+void empataroganar_x(char tablero[9], int contador) // Decide si es conveniente bloquear o jugar a ganar en el turno de la X
 {
     if (ganador_X(tablero)==1)
     {
@@ -598,7 +598,7 @@ void verificacion_juego_x(char tablero[9], int contador)
     }
 }
 
-void verificacion_juego_y(char tablero[9], int contador)
+void empataroganar_o(char tablero[9], int contador) // Decide si es conveniente bloquear o jugar a ganar en el turno de la X
 {
     if (ganador_O(tablero)==1)
     {
