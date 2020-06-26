@@ -7,16 +7,16 @@ int ganador_O(char tablero[9], int o[9], int lugar_ocupado[9]);
 int ganador_X(char tablero[9], int x[9], int lugar_ocupado[9]);
 int Pregunta_y_respuesta_usuario();
 int igualar_cero_variables(int x[9], int o[9], int lugar_ocupado[9]);
-int Analizar_respuesta_usuario_o(char tablero[9], int o[9], int lugar_ocupado[9], int respuesta);
-int Analizar_respuesta_usuario_x(char tablero[9], int x[9], int lugar_ocupado[9], int respuesta);
-int juego_x(int contador, char tablero[9], int x[9], int lugar_ocupado[9], int respuesta);
-int juego_o(int contador, char tablero[9], int o[9], int lugar_ocupado[9], int respuesta);
+int Asignacionficha(int contador, char tablero[9], int lugar_ocupado[9], int respuesta);
+int Verificaciondeganador (char tablero[] , char ficha, int a, int b, int c);
+int Yaexisteganador (char tablero[]);
 void empate_X(char tablero[9], int contador, int o[9], int lugar_ocupado[9], int numero_aleatorio);
 void empate_O(char tablero[9], int contador, int x[9], int lugar_ocupado[9], int numero_aleatorio);
 void dibujo_tablero(char tablero[9]);
 void empataroganar_x(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio);
 void empataroganar_y(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio);
 
+int const posibilidades[][3] = {{0,1,2},{3,4,5},{6,7,8},{0,4,8},{2,4,6},{0,3,6},{1,4,7},{2,5,8}};
 
 int main()
 {
@@ -28,29 +28,50 @@ int main()
     {
         dibujo_tablero(tablero);
         respuesta = Pregunta_y_respuesta_usuario();
-        if (contador%2==0)
-        {
-            contador = juego_x(contador, tablero, x, lugar_ocupado, respuesta); // juego_x es una funcion que se encarga todo sobre el juego en el turno de X, dode posicionar la x, la opcion del usuario, preguntas, etc.
-        }
-        else
-        {
-            contador = juego_o(contador, tablero,o, lugar_ocupado, respuesta); // Mismas funciones, pero para el caso de la O
-        }
+        contador = Asignacionficha(contador, tablero, lugar_ocupado, respuesta);
         system("cls");
     }
-    // ------------------------
-    if (contador%2==0) // Si es turno de la X
+    while (Yaexisteganador(tablero)!=1)
     {
-        empataroganar_x(tablero, contador, x, o, lugar_ocupado, numero_aleatorio);  // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de X
+         if (contador%2==0) // Si es turno de la X
+        {
+            empataroganar_x(tablero, contador, x, o, lugar_ocupado, numero_aleatorio);  // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de X
+        }
+        else // Si es turno de la O.
+        {
+            empataroganar_o(tablero, contador, x, o, lugar_ocupado, numero_aleatorio); // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de O
+        }
+        system("cls");
+        dibujo_tablero(tablero);
     }
-    else // Si es turno de la O.
-    {
-        empataroganar_o(tablero, contador, x, o, lugar_ocupado, numero_aleatorio); // Decide donde colocar la siguiente ficha, y si es posible ganar o bloquear en el turno de O
-    }
-    system("cls");
-    dibujo_tablero(tablero);
+    return 0;
 }
 
+int Yaexisteganador (char tablero[])
+{
+    for (int x=0; x<8; x++)
+    {
+        if (Verificaciondeganador(tablero, 'X',posibilidades[x][0], posibilidades[x][1], posibilidades[x][2])==3)
+        {
+            printf("\n\n EL GANADOR ES EL JUGADOR X");
+            return 1;
+        }
+        if (Verificaciondeganador(tablero, 'O', posibilidades[x][0], posibilidades[x][1], posibilidades[x][2])==3)
+        {
+            return 1;
+            printf("\n\n EL GANADOR ES EL JUGADOR O");
+        }
+    }
+    return 0;
+}
+int Verificaciondeganador (char tablero[] , char ficha, int a, int b, int c)
+{
+    int contador=0;
+    if (tablero[a]==ficha) {contador++;}
+    if (tablero[b]==ficha) {contador++;}
+    if (tablero[c]==ficha) {contador++;}
+    return contador;
+}
 int ganador_O(char tablero[9], int o[9], int lugar_ocupado[9]) // Analiza el caso y devuelve 1 si es posible ganar en el turno de la X
 {
     if (o[1]==o[0] || o[1]==o[2] || o[0]==o[2])
@@ -512,78 +533,30 @@ int Pregunta_y_respuesta_usuario () // Realiza la pregunta de a donde quiere pos
     gotoxy(1,7); printf("INGRESE UN ENTERO DEL 1 AL 9 PARA MARCAR CASILLERO.  SI DESEA TERMINAR DE PLANTEAR LA JUGADA, PRESIONE '0'.\n¿ DONDE DESEA COLOCAR LA O ? = "); scanf("%d",&respuesta);
     return respuesta;
 }
-int Analizar_respuesta_usuario_o(char tablero[9], int o[9], int lugar_ocupado[9], int respuesta) // Se fija si el numero ingresado es correcto, si es posible jugar ahi o si el usuario decidio que la maquina actue en el turno de la O
+int Asignacionficha(int contador, char tablero[9], int lugar_ocupado[9], int respuesta) // Todo lo relacionado al turno de la X
 {
     if (respuesta == 0)
     {
-        return 2;
+        contador=10;
     }
-    else if (lugar_ocupado[respuesta-1]==0 && respuesta > 0 && respuesta < 10)
+    else if (lugar_ocupado[respuesta-1]==0)
     {
-        tablero[respuesta-1]= 'O';
+        if (contador%2==0)
+        {
+            tablero[respuesta-1]='X';
+        }
+        else
+        {
+            tablero[respuesta-1]='O';
+        }
         lugar_ocupado[respuesta-1]=1;
-        o[respuesta-1]=14;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-int Analizar_respuesta_usuario_x(char tablero[9], int x[9], int lugar_ocupado[9], int respuesta) // Se fija si el numero ingresado es correcto, si es posible jugar ahi o si el usuario decidio que la maquina actue en el turno de la X
-{
-    if (respuesta== 0)
-    {
-        return 2;
-    }
-    if (lugar_ocupado[respuesta-1]==0 && respuesta > 0 && respuesta < 10)
-    {
-        tablero[respuesta-1]= 'X';
-        lugar_ocupado[respuesta-1]=1;
-        x[respuesta-1]=13;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
-}
-
-int juego_x(int contador, char tablero[9], int x[9], int lugar_ocupado[9], int respuesta) // Todo lo relacionado al turno de la X
-{
-    system("cls");
-    if (Analizar_respuesta_usuario_x(tablero,x,lugar_ocupado, respuesta)==1) // Si la respuesta esta dentro de los terminos del 1 al 9
-    {
         contador++;
     }
-    else if (Analizar_respuesta_usuario_x(tablero,x,lugar_ocupado, respuesta)==2) // Si el usuario ingreso 0.
-    {
-        contador=contador+10;
-    }
-    else
-    {
-        contador=contador; // En caso de que ninguna de las anteriores condiciones se cumplen.
-    }
+    else { contador==contador; }
     return contador;
 }
 
-int juego_o(int contador, char tablero[9], int o[9], int lugar_ocupado[9], int respuesta) // Todo lo relacionado al turno de la O
-{
-    system("cls");
-    if (Analizar_respuesta_usuario_o(tablero, o, lugar_ocupado, respuesta)==1)
-    {
-        contador++;
-    }
-    else if (Analizar_respuesta_usuario_o(tablero, o, lugar_ocupado, respuesta)==2)
-    {
-        contador=contador+10;
-    }
-    else
-    {
-        contador=contador;
-    }
-    return contador;
-}
+
 
 void empataroganar_x(char tablero[9], int contador, int x[9], int o[9], int lugar_ocupado[9], int numero_aleatorio) // Decide si es conveniente bloquear o jugar a ganar en el turno de la X
 {

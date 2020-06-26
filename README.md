@@ -36,4 +36,14 @@ X| |
  -------- 4/5 CAMBIOS -------
  
  En este avance solucione el problema de que en algunos casos la maquina acutaba 2 veces. El problema estaba en la falta de 'else' en los If de las funciones de empate tanto de la X y de la O.
+
+--------- 26/6 CAMBIOS ---------
+
+Tomando en cuenta varios ejemplos dados en el ultimo encuentro sincronico, modifique mi codigo.
+
+*Agrege las funciones "Yaexisteganador" y "Verificaciondeganador" que lo que hacen es, al establecer el tablero, verifica  si ya existe un ganador.
+
+*Unifique el jugador "juegox" "juegoo" "Analizar_respuesta_y_pregunta" en la funcion "Asignacionficha". Esto lo pude lograr teniendo en cuenta funciones presentadas en el encuentro sincronico.
+
+-Por estos cambios hay errores a la hora del juego de la maquina, que voy a intentar solucionarlo para el proximo avance y  y cambiar todos los if que hay en las funciones de juego de maquina.
  
