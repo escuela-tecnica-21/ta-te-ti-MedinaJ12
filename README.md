@@ -46,4 +46,13 @@ Tomando en cuenta varios ejemplos dados en el ultimo encuentro sincronico, modif
 *Unifique el jugador "juegox" "juegoo" "Analizar_respuesta_y_pregunta" en la funcion "Asignacionficha". Esto lo pude lograr teniendo en cuenta funciones presentadas en el encuentro sincronico.
 
 -Por estos cambios hay errores a la hora del juego de la maquina, que voy a intentar solucionarlo para el proximo avance y  y cambiar todos los if que hay en las funciones de juego de maquina.
+
+--------- 7/7 CAMBIOS ---------
+
+* Agrege la funcion "JugadaMaquina", la cual hace de IA para asignar una ficha donde es conveniente
+
+* La funcion "Ganar" funciona correctamente, y asigna la ficha si es posible ganar
+
+- Falta realizar la funcion que empate si es posible empatar.
+
  
